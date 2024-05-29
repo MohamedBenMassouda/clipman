@@ -44,6 +44,9 @@ var (
 	clearAll      = clearer.Flag("all", "Remove all items").Short('a').Default("false").Bool()
 	clearEsc      = clearer.Flag("print0", "Separate items using NULL; recommended if your tool supports --read0 or similar").Default("false").Bool()
 	_             = app.Command("restore", "Serve the last recorded item from history")
+
+	lister      = app.Command("list", "List all items in history")
+	showHistory = app.Command("show-history", "Show all items in history")
 )
 
 func main() {
@@ -58,6 +61,13 @@ func main() {
 	}
 
 	switch action {
+	case "list":
+		// Show history
+		for i, item := range history {
+			fmt.Printf("%d: %s\n", i, item)
+		}
+		return
+
 	case "store":
 		// read copy from stdin
 		var stdin []string

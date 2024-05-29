@@ -33,6 +33,15 @@ func selector(data []string, max int, tool, prompt, toolArgs string, null, error
 	)
 
 	switch tool {
+	case "fzf":
+		args = []string{
+			"fzf", "--prompt", prompt + " ",
+			"--height", "40%",
+			"--layout", "reverse",
+			"--ansi",
+			"--no-mouse",
+		}
+
 	case "dmenu":
 		args = []string{
 			"dmenu", "-b",
@@ -52,6 +61,7 @@ func selector(data []string, max int, tool, prompt, toolArgs string, null, error
 	case "wofi":
 		args = []string{"wofi", "-p", prompt, "--cache-file", "/dev/null", "--dmenu"}
 	case "CUSTOM":
+		fmt.Println(toolArgs)
 		if len(toolArgs) == 0 {
 			return "", fmt.Errorf("missing tool args for CUSTOM tool")
 		}
