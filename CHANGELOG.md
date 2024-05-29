@@ -1,3 +1,8 @@
+# 1.6.3
+**Small changes**
+- bumped go version to 1.20
+- fzf is now a built-in selector
+
 # 1.6.1
 
 **Notable bug fixes**

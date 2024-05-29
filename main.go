@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -16,7 +15,7 @@ import (
 	"github.com/alecthomas/kingpin/v2"
 )
 
-const version = "1.6.2"
+const version = "1.6.3"
 
 var (
 	app      = kingpin.New("clipman", "A clipboard manager for Wayland")
@@ -184,7 +183,8 @@ func getHistory(rawPath string) (string, []string, error) {
 
 	// read history if it exists
 	var history []string
-	b, err := ioutil.ReadFile(histfile)
+	b, err := os.ReadFile(histfile)
+
 	if err != nil {
 		if !os.IsNotExist(err) {
 			return "", nil, fmt.Errorf("failure reading history file: %s", err)
