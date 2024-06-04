@@ -61,7 +61,6 @@ func selector(data []string, max int, tool, prompt, toolArgs string, null, error
 	case "wofi":
 		args = []string{"wofi", "-p", prompt, "--cache-file", "/dev/null", "--dmenu"}
 	case "CUSTOM":
-		fmt.Println(toolArgs)
 		if len(toolArgs) == 0 {
 			return "", fmt.Errorf("missing tool args for CUSTOM tool")
 		}

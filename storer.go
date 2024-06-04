@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 )
 
 func store(text string, history []string, histfile string, max int, persist bool) error {
@@ -66,5 +66,5 @@ func write(history []string, histfile string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(histfile, b, 0600)
+	return os.WriteFile(histfile, b, 0600)
 }

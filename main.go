@@ -55,12 +55,14 @@ func main() {
 	action := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	histfile, history, err := getHistory(*histpath)
+
 	if err != nil {
 		smartLog(err.Error(), "critical", *alert)
 	}
 
 	switch action {
 	case "list":
+
 		// Show history
 		for i, item := range history {
 			fmt.Printf("%d: %s\n", i, item)
@@ -68,6 +70,7 @@ func main() {
 		return
 
 	case "store":
+
 		// read copy from stdin
 		var stdin []string
 		scanner := bufio.NewScanner(os.Stdin)
@@ -88,7 +91,9 @@ func main() {
 		if err := store(text, history, histfile, *maxDemon, persist); err != nil {
 			smartLog(err.Error(), "critical", *alert)
 		}
+
 	case "pick":
+
 		selection, err := selector(history, *maxPicker, *pickTool, "pick", *pickToolArgs, *pickEsc, *errorOnNoSelection)
 		if err != nil {
 			smartLog(err.Error(), "normal", *alert)
@@ -98,14 +103,18 @@ func main() {
 			// serve selection to the OS
 			serveTxt(selection)
 		}
+
 	case "restore":
+
 		if len(history) == 0 {
 			fmt.Println("Nothing to restore")
 			return
 		}
 
 		serveTxt(history[len(history)-1])
+
 	case "show-history":
+
 		if len(history) != 0 {
 			urlsJson, _ := json.Marshal(history)
 			fmt.Println(string(urlsJson))
@@ -113,7 +122,9 @@ func main() {
 		}
 		fmt.Println("Nothing to show")
 		return
+
 	case "clear":
+
 		// remove all history
 		if *clearAll {
 			if err := wipeAll(histfile); err != nil {
